@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#100c0d">
+<title>Elias — Fotografie</title>
+<meta name="description" content="Hobbyfotograf mit Blick für Stille, Atmosphäre und das Besondere im Alltäglichen.">
+<link rel="preconnect" href="https://fonts.bunny.net">
+<link rel="stylesheet" href="https://fonts.bunny.net/css?family=gabarito:500,800,900|instrument-sans:400,500,600&display=swap">
+<style>
+:root{--ink:#100c0d;--red:#a72d2d;--red-deep:#7a2222;--cream:#e2dcce;--olive:#4f5d3b;--fd:"Gabarito",system-ui,sans-serif;--ft:"Instrument Sans",system-ui,sans-serif;--line:color-mix(in oklab,currentColor 26%,transparent);--gap:clamp(10px,1.4vw,20px);--pad:clamp(20px,4.4vw,72px);--r:clamp(20px,2.3vw,34px);--rs:clamp(10px,1.2vw,16px);--head:68px;--spring:cubic-bezier(.34,1.56,.5,1);--out:cubic-bezier(.2,.8,.2,1)}
+*,*::before,*::after{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:var(--head);scroll-behavior:smooth}
+body{margin:0;background:var(--ink);color:var(--cream);font:400 17px/1.55 var(--ft);-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+h1,h2,h3,p{margin:0}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid currentColor;outline-offset:3px}
+main{padding:0 max(var(--gap),env(safe-area-inset-left)) 0 max(var(--gap),env(safe-area-inset-right))}
+main>*+*{margin-top:var(--gap)}
+.card{position:relative;border-radius:var(--r);padding:var(--pad)}
+.on-red{background:var(--red)}.on-cream{background:var(--cream);color:var(--ink)}.on-olive{background:var(--olive)}
+.marks::before,.marks::after{content:"";position:absolute;width:8px;height:8px;background:currentColor;z-index:4;pointer-events:none}
+.marks::before{top:calc(var(--pad)*.42);right:calc(var(--pad)*.42)}
+.marks::after{bottom:calc(var(--pad)*.42);left:calc(var(--pad)*.42)}
+.h2{font:800 clamp(44px,8vw,96px)/.9 var(--fd);letter-spacing:-.035em;text-wrap:balance}
+.lead{font-size:clamp(18px,1.5vw,21px);line-height:1.45;font-weight:500}
+.small{font-size:14px;line-height:1.4}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.8em;min-height:48px;padding:.8em 1.4em;border:1.5px solid currentColor;border-radius:999px;font:500 16px/1 var(--ft);text-decoration:none;position:relative;isolation:isolate;overflow:hidden;background:none;cursor:pointer;transition:transform .5s var(--spring),color .35s}
+.btn::after{content:"→";transition:transform .45s var(--spring)}
+.btn::before{content:"";position:absolute;inset:-1px;z-index:-1;background:var(--fill,var(--cream));clip-path:circle(0% at 88% 50%);transition:clip-path .55s var(--out)}
+.solid{background:var(--cream);color:var(--ink);border-color:var(--cream);--fill:var(--ink)}
+.solid:hover,.solid:focus-visible{color:var(--cream)}
+.btn:focus-visible::before{clip-path:circle(150% at 88% 50%)}
+@media(hover:hover){.btn:hover{transform:rotate(-3deg);color:var(--ink)}.solid:hover{color:var(--cream)}.btn:hover::before{clip-path:circle(150% at 88% 50%)}.btn:hover::after{transform:translateX(5px)}}
+.ibtn{width:48px;height:48px;flex:none;display:inline-grid;place-items:center;border-radius:50%;border:1.5px solid currentColor;background:none;cursor:pointer;padding:0;font-size:20px;line-height:1}
+
+.hdr{position:fixed;inset:0 0 auto;z-index:50;height:var(--head);padding:max(10px,env(safe-area-inset-top)) max(var(--gap),env(safe-area-inset-right)) 0 max(var(--gap),env(safe-area-inset-left));pointer-events:none}
+.bar{pointer-events:auto;height:100%;display:flex;align-items:center;gap:18px;padding:0 6px 0 clamp(16px,1.6vw,22px);border-radius:999px;background:var(--ink);color:var(--cream)}
+.brand{font:900 27px var(--fd);letter-spacing:-.04em;text-decoration:none;margin-right:auto}
+.nav{display:flex;gap:clamp(14px,2vw,30px);font-weight:500;font-size:15px}
+.nav a{text-decoration:none}
+.menu{display:none;border-color:var(--line);align-content:center;justify-items:center}
+.menu span{grid-area:1/1;width:16px;height:1.5px;background:currentColor;transition:transform .4s var(--spring)}
+.menu span:first-child{transform:translateY(-3px)}.menu span:last-child{transform:translateY(3px)}
+.is-open .menu span:first-child{transform:rotate(45deg)}.is-open .menu span:last-child{transform:rotate(-45deg)}
+.cta{min-height:44px;padding:.7em 1.2em;font-size:14px}
+@media(max-width:900px){.menu{display:inline-grid}.cta{display:none}
+.nav{position:fixed;top:calc(var(--head) + 6px + env(safe-area-inset-top));left:var(--gap);right:var(--gap);flex-direction:column;gap:2px;padding:20px 24px 24px;border-radius:var(--r);background:var(--cream);color:var(--ink);font:800 clamp(34px,10vw,48px)/1.15 var(--fd);letter-spacing:-.03em;opacity:0;visibility:hidden;transform:translateY(-10px) rotate(-1.5deg);transition:opacity .3s,transform .5s var(--spring),visibility 0s .3s}
+.is-open .nav{opacity:1;visibility:visible;transform:none;transition:opacity .3s,transform .5s var(--spring)}
+.nav a{padding:4px 0}}
+
+.hero{padding-top:var(--head)}
+.hero .card{height:calc(100svh - var(--head) - 2*var(--gap));min-height:520px;max-height:960px;margin-top:var(--gap);padding:var(--pad);display:flex;flex-direction:column;justify-content:flex-end;gap:16px;color:var(--cream)}
+.photo{position:absolute;inset:0;border-radius:inherit;overflow:hidden;background:var(--red-deep)}
+.photo img{width:100%;height:100%;object-fit:cover}
+.photo::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(16,12,13,.82) 0,rgba(16,12,13,.3) 45%,transparent 70%)}
+.wclip{position:absolute;left:0;right:0;top:0;z-index:2;container-type:inline-size;pointer-events:none}
+.word{font:900 calc(92cqi/(5*.52))/.8 var(--fd);letter-spacing:-.045em;text-align:center;white-space:nowrap;width:92cqi;margin:calc(var(--pad)*.5) auto 0}
+.info{position:relative;z-index:3;display:grid;gap:14px;justify-items:start;max-width:560px}
+.info .t{font:800 clamp(30px,5vw,44px)/.98 var(--fd);letter-spacing:-.025em;text-wrap:balance}
+.info .lead{font-size:16px;max-width:40ch;opacity:.92}
+.st{display:inline-flex;align-items:center;gap:10px;font-size:14px;font-weight:500}
+.st i{width:9px;height:9px;border-radius:50%;background:#f0c24a}
+
+.head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 24px;margin-bottom:clamp(20px,3vw,40px)}
+.gal{columns:2;column-gap:var(--gap)}
+@media(min-width:900px){.gal{columns:3}}
+.gal figure{margin:0 0 clamp(14px,1.6vw,24px);break-inside:avoid}
+.gal button{display:block;width:100%;padding:0;border:0;border-radius:var(--rs);overflow:hidden;background:#c9c2b2;cursor:zoom-in}
+.gal img{width:100%;transition:transform .8s var(--out)}
+@media(hover:hover){.gal button:hover img{transform:scale(1.03)}}
+.gal figcaption{margin-top:8px;font-size:13px;line-height:1.3;font-weight:500}
+
+.about{display:grid;gap:clamp(24px,4vw,56px)}
+.about .h2{max-width:17ch;font-size:clamp(36px,6vw,80px)}
+.about .lead{max-width:52ch}
+.contact{display:grid;gap:clamp(20px,3vw,40px);justify-items:start}
+.contact .lead{max-width:36ch}
+.acts{display:grid;gap:12px;width:100%;max-width:420px}
+@media(min-width:700px){.acts{display:flex;max-width:none;width:auto;gap:16px}}
+
+footer{padding:clamp(36px,6vw,80px) max(calc(var(--gap) + var(--pad)*.5),env(safe-area-inset-right)) max(24px,env(safe-area-inset-bottom)) max(calc(var(--gap) + var(--pad)*.5),env(safe-area-inset-left));display:grid;gap:28px}
+.fb{font:900 clamp(64px,16vw,150px)/.8 var(--fd);letter-spacing:-.05em;text-decoration:none}
+.fs{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 24px;border-top:1.5px solid var(--line);padding-top:14px;font-size:14px}
+.fs div{display:flex;gap:6px}
+.fs button{background:none;border:0;padding:12px 8px 12px 0;cursor:pointer;text-decoration:underline;text-underline-offset:.24em;text-decoration-color:var(--line)}
+.fs span{padding:12px 0;opacity:.75}
+
+dialog{border:0;padding:0}
+dialog::backdrop{background:rgba(16,12,13,.75)}
+.legal{width:100%;max-width:none;max-height:92dvh;margin:auto 0 0;border-radius:var(--r) var(--r) 0 0;background:var(--cream);color:var(--ink)}
+@media(min-width:700px){.legal{width:min(720px,92vw);margin:auto;border-radius:var(--r)}}
+.legal .in{padding:clamp(24px,4vw,48px) clamp(20px,4vw,48px) max(28px,env(safe-area-inset-bottom))}
+.legal h2{font:800 clamp(32px,5vw,48px)/.95 var(--fd);letter-spacing:-.03em;margin-bottom:18px}
+.legal h3{font:600 17px var(--ft);margin:22px 0 4px}
+.legal p+p{margin-top:12px}
+.legal .btn{margin-top:26px;--fill:var(--ink)}
+.legal .btn:hover,.legal .btn:focus-visible{color:var(--cream)}
+.lb{width:100vw;height:100vh;height:100dvh;max-width:none;max-height:none;background:var(--ink);color:var(--cream)}
+.lb .box{height:100%;display:grid;grid-template-rows:1fr auto;gap:12px;padding:max(14px,env(safe-area-inset-top)) max(14px,env(safe-area-inset-right)) max(14px,env(safe-area-inset-bottom)) max(14px,env(safe-area-inset-left))}
+.lb .stage{min-height:0;display:grid;place-items:center;touch-action:pan-y}
+.lb img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;border-radius:var(--rs)}
+.lb .bar2{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.lb .ctl{display:flex;gap:10px}
+.lb .x{position:absolute;top:max(12px,env(safe-area-inset-top));right:max(12px,env(safe-area-inset-right));background:rgba(16,12,13,.6);z-index:2}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+</style>
+</head>
+<body>
+<header class="hdr" id="hdr">
+  <div class="bar">
+    <a class="brand" href="#hero">Elias</a>
+    <nav class="nav" id="nav" aria-label="Hauptmenü"><a href="#galerie">Galerie</a><a href="#about">Über mich</a><a href="#kontakt">Kontakt</a></nav>
+    <a class="btn solid cta" href="#kontakt">Schreib mir</a>
+    <button class="ibtn menu" id="menu" aria-expanded="false" aria-controls="nav" aria-label="Menü"><span></span><span></span></button>
+  </div>
+</header>
+
+<main>
+  <section class="hero" id="hero">
+    <div class="card marks">
+      <figure class="photo" style="margin:0"><img src="Fotos/fuji_106_B_WienBahnHolaubekPlatzGoldenHour01.jpg" alt="Hero" fetchpriority="high"></figure>
+      <div class="wclip"><h1 class="word" aria-label="Elias — Fotografie">Elias</h1></div>
+      <div class="info">
+        <p class="t">Das Licht im richtigen Moment.</p>
+        <p class="lead">Hobbyfotograf mit Blick für Stille, Atmosphäre und das Besondere im Alltäglichen.</p>
+        <p class="st"><i></i>Verfügbar für Projekte</p>
+        <a class="btn" href="#galerie">Zur Galerie</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="card on-cream marks" id="galerie">
+    <div class="head"><h2 class="h2">Galerie</h2><p class="small">Ausgewählte Arbeiten</p></div>
+    <div class="gal" id="gal"></div>
+  </section>
+
+  <section class="card on-olive marks about" id="about">
+    <p class="small">Über mich</p>
+    <h2 class="h2">Fotografieren ist meine Art, die Welt zu verstehen.</h2>
+    <p class="lead">Ich bin Elias, Hobbyfotograf aus Leidenschaft. Mit meiner Kamera erkunde ich Licht, Schatten und die kleinen Momente, die im Alltag oft unbemerkt bleiben. Mein Fokus liegt auf Landschaften und Streetfotografie.</p>
+  </section>
+
+  <section class="card on-red marks contact" id="kontakt">
+    <h2 class="h2">In Kontakt treten</h2>
+    <p class="lead">Ich freue mich über Nachrichten, Feedback oder Kooperationen.</p>
+    <div class="acts">
+      <a class="btn solid" href="mailto:elias.schwaz08@gmail.com">E-Mail schreiben</a>
+      <a class="btn" href="https://www.instagram.com/eliasschwarz08" target="_blank" rel="noopener">Instagram</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <a class="fb" href="#hero">Elias — Fotografie</a>
+  <div class="fs"><span>© 2026 Elias — Fotografie · Alle Rechte vorbehalten</span><div><button data-open="impressum">Impressum</button><button data-open="datenschutz">Datenschutz</button></div></div>
+</footer>
+
+<dialog class="legal" id="impressum" aria-labelledby="t1"><div class="in">
+  <h2 id="t1">Impressum</h2>
+  <p><strong>Diensteanbieter und Medieninhaber:</strong><br>Elias Schwarz</p>
+  <p><strong>Kontakt:</strong><br>E-Mail: elias.schwaz08@gmail.com</p>
+  <p><strong>Wohnort:</strong><br>Österreich<br>Mistelbach</p>
+  <p><strong>Offenlegung gemäß § 25 Mediengesetz:</strong><br><em>Dies ist eine rein private Website zur Darstellung persönlicher Fotografien ohne kommerzielle Absicht.</em></p>
+  <button class="btn" data-close>Schließen</button>
+</div></dialog>
+
+<dialog class="legal" id="datenschutz" aria-labelledby="t2"><div class="in">
+  <h2 id="t2">Datenschutzerklärung</h2>
+  <h3>1. Datenschutz auf einen Blick</h3>
+  <p>Diese Datenschutzerklärung klärt Sie über die Art, den Umfang und Zweck der Verarbeitung von personenbezogenen Daten auf dieser Website auf. Ich nehme den Schutz Ihrer Daten sehr ernst und behandle Ihre Daten vertraulich.</p>
+  <h3>2. Datenübermittlung und Webhosting</h3>
+  <p>Diese Website wird über <strong>GitHub Pages</strong> (GitHub Inc., 88 Colin P. Kelly Jr. St, San Francisco, CA 94107, USA) gehostet. Beim Aufruf dieser Webseite erhebt GitHub automatisch Server-Logfiles (z.B. IP-Adresse, Browsertyp, Datum/Uhrzeit). Dies ist technisch erforderlich, um die Website stabil und sicher bereitzustellen. GitHub verarbeitet diese Daten auf Basis berechtigter Interessen.</p>
+  <h3>3. Cookies &amp; Tracking</h3>
+  <p>Diese Website ist rein informativ und nutzt <strong>keine Cookies</strong>, keine Analyse-Tools (wie Google Analytics) und kein Tracking-Verhalten.</p>
+  <h3>4. Externe Schriftarten (Fonts)</h3>
+  <p>Zur einheitlichen Darstellung von Schriftarten nutzt diese Seite den datenschutzfreundlichen Dienst <strong>Bunny Fonts</strong> (bereitgestellt von Bunny Way d.o.o.). Dieser lädt Schriftarten komplett ohne das Setzen von Cookies und ohne Protokollierung oder Weiterleitung der IP-Adresse des Besuchers an US-Server (DSGVO-konform).</p>
+  <h3>5. Ihre Rechte</h3>
+  <p>Sie haben das Recht, jederzeit unentgeltlich Auskunft über Herkunft, Empfänger und Zweck Ihrer gespeicherten personenbezogenen Daten zu erhalten. Zudem haben Sie ein Recht auf Berichtigung oder Löschung dieser Daten. Wenden Sie sich hierzu einfach per E-Mail an mich.</p>
+  <button class="btn" data-close>Schließen</button>
+</div></dialog>
+
+
+<dialog class="lb" id="lb" aria-label="Bildansicht"><div class="box">
+  <button class="ibtn x" data-close aria-label="Schließen">✕</button>
+  <div class="stage"><img id="lbimg" alt=""></div>
+  <div class="bar2"><span id="lbcap"></span><div class="ctl"><button class="ibtn" data-prev aria-label="Vorheriges Bild">←</button><button class="ibtn" data-next aria-label="Nächstes Bild">→</button></div></div>
+</div></dialog>
+
+<script>
+const P='Fotos/';
+const IMGS=[
+['fuji_107_B_RolltreppeWien_01.jpg','U-Bahn-Station „Rolltreppe in Wien','Wiener Rolltreppe'],
+['fuji_108_B_InnenhofWienSW01.jpg','Wiener Innenhof','Wiener Innenhof'],
+['fuji_108_B_StiegenWien02.jpg','Wiener U-Bahnaufgang','Wiener U-Bahnaufgang'],
+['fuji_107_B_Lampengitter01.jpg','Gitter','mystisches Gitter'],
+['fuji_106_B_br%C3%BCckenMenschWienZerteil04.jpg','Wiener Brücke in Schnipsel','Wiener Brücken Collage'],
+['fuji_106_B_Wienw%C3%BCstenrot01.jpg','Wiener Gebäude','Wiener Dreieck'],
+['fuji_108_B_BahnabstiegSW01.jpg','Wiener U-Bahnaufgang','Wiener U-Bahnsteig'],
+['fuji_107_B_SpiegelUbahnMenschFormal01.jpg','Spiegelung in U-Bahn mit Person','ungewisse Spiegelung'],
+['fuji_107_B_SpeigelKugelWien01.jpg','Spiegelkugel in Wien','Spiegelkugel in Wien'],
+['fuji_108_B_BelvederePool01.jpg','Belvedere Pool','Belvedere'],
+['fuji_108_B_SpiegelZugOpaWien01.jpg','Spiegelung im Zug','Spiegelung am Bahnsteig'],
+['DSCF9045.JPG','Fotografie DSCF9045','fixierter Blumenstrauß'],
+['DSCF9019.JPG','Fotografie DSCF9019','Abendgewächs'],
+['DSCF9052.JPG','Fotografie DSCF9052','letzte Sonnenstrahlen'],
+['fuji_105_B_stra%C3%9Fenbahngleise01.jpg','Straßenbahngleise','Straßenbahngleise'],
+['fuji_105_B_Wolke1.jpg','Wolke','Arbendgewitter'],
+['fuji_106_B_Fensterspigelung01.jpg','Fensterspiegelung','Fensterspiegelung'],
+['fuji_106_B_HandelskaiGoldenHour01.jpg','Handelskai in der Golden Hour','Handelskai - Golden Hour'],
+['fuji_106_B_TennisWien02.jpg','Tennis in Wien','Wiener Tennis'],
+['fuji110_B_SieferrolltreppenHandyzombies.jpg','Sieferrolltreppe Handyzombies','Handyzombies'],
+['fuji110_B_WienerAuto01.jpg','Wiener Auto','Wiener Auto'],
+['fuji110_B_Glashausduchblick01.jpg','Glashaus Durchblick','Glashaus Durchblick'],
+['fuji110_B_Gew%C3%A4chshausEingangsduchblick01.jpg','Gewächshaus Eingangsdurchblick','Gewächshaus Eingang'],
+['fuji_109_B_MistelbacherLichtblickdesUntergangs01.jpg','Mistelbacher Lichtblick des Untergangs','Lichtblick des Untergangs'],
+['fuji_109_B_MistelbacherUntergang01.jpg','Mistelbacher Untergang','Mistelbacher Untergang'],
+['fuji_109_B_RoteHollabl%C3%BCtte01.jpg','Rote Hollablüte','Rote Hollablüte'],
+['IMG_20260718_122422521.jpeg','Fotografie Juli 2026','Arbeiten in Općina Oprtalj'],
+['1000035552%20%281%29.jpeg','Fotografie','Die total Spiegelung'],
+['1000035931.jpeg','Fotografie','Fassade in Kroatien'],
+['1000036328.jpeg','Fotografie','Ausblick auf Rijeka'],
+['1000036410%20%285%29.jpeg','Fotografie','verwunschene Treppe'],
+['1000036697.jpeg','Fotografie','Labin in Gold'],
+['1000036752.jpeg','Fotografie','Galarie in Labin'],
+['1000036753.jpeg','Fotografie','Fenster im Fenster'],
+['IMG_20260710_201450705.jpeg','Fotografie Juli 2026','Fähre']
+];
+const g=document.getElementById('gal');
+IMGS.forEach((m,i)=>{
+  const f=document.createElement('figure'),b=document.createElement('button'),im=new Image(),c=document.createElement('figcaption');
+  b.type='button';b.setAttribute('aria-label',m[2]+' vergrößern');
+  im.src=P+m[0];im.alt=m[1];im.loading='lazy';im.decoding='async';
+  b.append(im);b.onclick=()=>show(i);c.textContent=m[2];f.append(b,c);g.append(f);
+});
+const lb=document.getElementById('lb'),li=document.getElementById('lbimg'),lc=document.getElementById('lbcap');
+let cur=0;
+function show(i){cur=(i+IMGS.length)%IMGS.length;li.src=P+IMGS[cur][0];li.alt=IMGS[cur][1];lc.textContent=IMGS[cur][2]+'  ·  '+(cur+1)+'/'+IMGS.length;
+  new Image().src=P+IMGS[(cur+1)%IMGS.length][0];if(!lb.open)lb.showModal()}
+lb.querySelector('[data-prev]').onclick=()=>show(cur-1);
+lb.querySelector('[data-next]').onclick=()=>show(cur+1);
+lb.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')show(cur-1);if(e.key==='ArrowRight')show(cur+1)});
+let x0=0;
+lb.addEventListener('touchstart',e=>{x0=e.changedTouches[0].clientX},{passive:true});
+lb.addEventListener('touchend',e=>{const d=e.changedTouches[0].clientX-x0;if(Math.abs(d)>50)show(cur+(d<0?1:-1))},{passive:true});
+document.querySelectorAll('[data-open]').forEach(b=>b.onclick=()=>document.getElementById(b.dataset.open).showModal());
+document.querySelectorAll('[data-close]').forEach(b=>b.onclick=()=>b.closest('dialog').close());
+document.querySelectorAll('dialog').forEach(d=>d.addEventListener('click',e=>{if(e.target===d)d.close()}));
+const hdr=document.getElementById('hdr'),mb=document.getElementById('menu');
+const setMenu=o=>{hdr.classList.toggle('is-open',o);mb.setAttribute('aria-expanded',o)};
+mb.onclick=()=>setMenu(!hdr.classList.contains('is-open'));
+document.getElementById('nav').addEventListener('click',e=>{if(e.target.closest('a'))setMenu(false)});
+document.addEventListener('click',e=>{if(!e.target.closest('.bar'))setMenu(false)});
+addEventListener('keydown',e=>{if(e.key==='Escape')setMenu(false)});
+</script>
+</body>
+</html>
