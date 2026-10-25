@@ -205,7 +205,7 @@ dialog::backdrop{background:rgba(16,12,13,.75)}
 const P='Fotos/';
 /* ==========================================================
    FOTOS & ORDNER – HIER ÄNDERN
-   Ordner:  { name:'Name', open:true, images:[ ... ] }   (open:false = beim Öffnen zugeklappt)
+   Ordner:  { name:'Name', open:false, images:[ ... ] }   (open:false = zugeklappt, open:true = aufgeklappt)
    Foto:    ['dateiname.webp', 'Titel für die Großansicht'],
    Verschieben: Foto-Zeile ausschneiden, in anderen Ordner einfügen.
    Neuer Ordner: einen { ... }-Block kopieren und Name/Fotos ändern.
@@ -213,7 +213,7 @@ const P='Fotos/';
    (Dateiname genau wie die Datei, Umlaute und Leerzeichen sind ok).
    ========================================================== */
 const FOLDERS=[
-{name:'Wien',open:true,images:[
+{name:'Wien',open:false,images:[
 ['fuji_107_B_RolltreppeWien_01.webp','Wiener Rolltreppe'],
 ['fuji_108_B_InnenhofWienSW01.webp','Wiener Innenhof'],
 ['fuji_108_B_StiegenWien02.webp','Wiener U-Bahnaufgang'],
@@ -233,14 +233,14 @@ const FOLDERS=[
 ['fuji110_B_Longstreetuntergang01.webp','Straßenuntergang'],
 ['fuji110_B_Ubahnzug01.webp','U-Bahn-Abteil'],
 ]},
-{name:'Spiegelungen & Fenster',open:true,images:[
+{name:'Spiegelungen & Fenster',open:false,images:[
 ['fuji_107_B_SpiegelUbahnMenschFormal01.webp','ungewisse Spiegelung'],
 ['fuji_107_B_SpeigelKugelWien01.webp','Spiegelkugel in Wien'],
 ['fuji_108_B_SpiegelZugOpaWien01.webp','Spiegelung am Bahnsteig'],
 ['fuji_106_B_Fensterspigelung01.webp','Fensterspiegelung'],
 ['fuji110_B_loenlywindow01.webp','Einsames Fenster'],
 ]},
-{name:'Natur & Licht',open:true,images:[
+{name:'Natur & Licht',open:false,images:[
 ['DSCF9045.webp','fixierter Blumenstrauß'],
 ['DSCF9019.webp','Abendgewächs'],
 ['DSCF9052.webp','letzte Sonnenstrahlen'],
@@ -253,7 +253,7 @@ const FOLDERS=[
 ['fuji111_B_Berglandschaft01.webp','Berglandschaft'],
 ['fuji111_B_Regenberge02.webp','Regenberge'],
 ]},
-{name:'Kroatien',open:true,images:[
+{name:'Kroatien',open:false,images:[
 ['IMG_20260718_122422521.webp','Arbeiten in Općina Oprtalj'],
 ['1000035552 (1).webp','Die total Spiegelung'],
 ['1000035931.webp','Fassade in Kroatien'],
@@ -264,7 +264,7 @@ const FOLDERS=[
 ['1000036753.webp','Fenster im Fenster'],
 ['IMG_20260710_201450705.webp','Fähre'],
 ]},
-{name:'Grafenegg',open:true,images:[
+{name:'Grafenegg',open:false,images:[
 ['fuji110_B_Grafeneggsteherspiegel01.webp','Grafenegg Spiegel'],
 ['fuji110_B_HinterGrafenegg01.webp','Hinter Grafenegg'],
 ['fuji110_B_sesselGrafenegg01.webp','Grafenegg Sessel'],
