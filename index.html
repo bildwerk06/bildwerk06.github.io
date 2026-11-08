@@ -112,8 +112,9 @@ dialog::backdrop{background:rgba(16,12,13,.75)}
 .legal .btn:hover,.legal .btn:focus-visible{color:var(--cream)}
 .lb{width:100vw;height:100vh;height:100dvh;max-width:none;max-height:none;background:var(--ink);color:var(--cream)}
 .lb .box{height:100%;display:grid;grid-template-rows:1fr auto;gap:12px;padding:max(14px,env(safe-area-inset-top)) max(14px,env(safe-area-inset-right)) max(14px,env(safe-area-inset-bottom)) max(14px,env(safe-area-inset-left))}
-.lb .stage{min-height:0;display:grid;place-items:center;touch-action:pan-y}
-.lb img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;border-radius:var(--rs)}
+.lb .stage{min-height:0;display:grid;place-items:center;touch-action:none;overflow:hidden;cursor:zoom-in}
+.lb .stage.zoomed{cursor:grab}
+.lb img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;border-radius:var(--rs);user-select:none;-webkit-user-drag:none;will-change:transform}
 .lb .bar2{display:flex;align-items:center;justify-content:space-between;gap:12px}
 .lb .ctl{display:flex;gap:10px}
 .lb .x{position:absolute;top:max(12px,env(safe-area-inset-top));right:max(12px,env(safe-area-inset-right));background:rgba(16,12,13,.6);z-index:2}
@@ -290,13 +291,38 @@ FOLDERS.forEach(fo=>{
 const lb=document.getElementById('lb'),li=document.getElementById('lbimg'),lc=document.getElementById('lbcap');
 let cur=0;
 function show(i){cur=(i+ALL.length)%ALL.length;li.src=u(ALL[cur][0]);li.alt=ALL[cur][1];lc.textContent=ALL[cur][1]+'  ·  '+(cur+1)+'/'+ALL.length;
-  new Image().src=u(ALL[(cur+1)%ALL.length][0]);if(!lb.open)lb.showModal()}
+  new Image().src=u(ALL[(cur+1)%ALL.length][0]);resetZoom();if(!lb.open)lb.showModal()}
 lb.querySelector('[data-prev]').onclick=()=>show(cur-1);
 lb.querySelector('[data-next]').onclick=()=>show(cur+1);
 lb.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')show(cur-1);if(e.key==='ArrowRight')show(cur+1)});
-let x0=0;
-lb.addEventListener('touchstart',e=>{x0=e.changedTouches[0].clientX},{passive:true});
-lb.addEventListener('touchend',e=>{const d=e.changedTouches[0].clientX-x0;if(Math.abs(d)>50)show(cur+(d<0?1:-1))},{passive:true});
+/* ===== Zoom in der Großansicht: 2 Finger / Doppeltipp / Doppelklick / Mausrad ===== */
+const stg=li.parentElement,MAXZ=5,pts=new Map();
+let sc=1,tx=0,ty=0,d0=0,sc0=1,gx=0,gy=0,gtx=0,gty=0,gt=0,pinched=false,lastTap=0,lastX=0,lastY=0;
+function apply(anim){li.style.transition=anim?'transform .3s cubic-bezier(.2,.8,.2,1)':'none';li.style.transform='translate('+tx+'px,'+ty+'px) scale('+sc+')';stg.classList.toggle('zoomed',sc>1)}
+function clampPan(){const mx=Math.max(0,(li.offsetWidth*sc-stg.clientWidth)/2),my=Math.max(0,(li.offsetHeight*sc-stg.clientHeight)/2);tx=Math.min(mx,Math.max(-mx,tx));ty=Math.min(my,Math.max(-my,ty))}
+function resetZoom(anim){sc=1;tx=ty=0;apply(anim)}
+function zoomAt(ns,cx,cy,anim){const r=stg.getBoundingClientRect(),px=cx-(r.left+r.width/2),py=cy-(r.top+r.height/2);
+  ns=Math.min(MAXZ,Math.max(1,ns));tx=px-(px-tx)*(ns/sc);ty=py-(py-ty)*(ns/sc);sc=ns;if(sc<=1.001){sc=1;tx=ty=0}clampPan();apply(anim)}
+stg.addEventListener('pointerdown',e=>{stg.setPointerCapture(e.pointerId);pts.set(e.pointerId,{x:e.clientX,y:e.clientY});
+  if(pts.size===2){const[a,b]=[...pts.values()];d0=Math.hypot(a.x-b.x,a.y-b.y)||1;sc0=sc;pinched=true}
+  gx=e.clientX;gy=e.clientY;gtx=tx;gty=ty;gt=Date.now()});
+stg.addEventListener('pointermove',e=>{if(!pts.has(e.pointerId))return;pts.set(e.pointerId,{x:e.clientX,y:e.clientY});
+  if(pts.size===2){const[a,b]=[...pts.values()];zoomAt(sc0*Math.hypot(a.x-b.x,a.y-b.y)/d0,(a.x+b.x)/2,(a.y+b.y)/2)}
+  else if(sc>1){tx=gtx+e.clientX-gx;ty=gty+e.clientY-gy;clampPan();apply()}});
+function endPtr(e){if(!pts.has(e.pointerId))return;const single=pts.size===1&&!pinched;pts.delete(e.pointerId);
+  if(pts.size===1){const r=[...pts.values()][0];gx=r.x;gy=r.y;gtx=tx;gty=ty}
+  if(pts.size===0){const dx=e.clientX-gx,dy=e.clientY-gy,now=Date.now();
+    if(e.type==='pointerup'&&single){
+      if(sc===1&&Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)*1.2){show(cur+(dx<0?1:-1))}
+      else if(Math.hypot(dx,dy)<10&&now-gt<300){
+        if(now-lastTap<350&&Math.hypot(e.clientX-lastX,e.clientY-lastY)<40){sc>1?resetZoom(true):zoomAt(2.5,e.clientX,e.clientY,true);lastTap=0}
+        else{lastTap=now;lastX=e.clientX;lastY=e.clientY}}}
+    pinched=false}}
+stg.addEventListener('pointerup',endPtr);stg.addEventListener('pointercancel',endPtr);
+stg.addEventListener('wheel',e=>{e.preventDefault();zoomAt(sc*(e.deltaY<0?1.2:1/1.2),e.clientX,e.clientY)},{passive:false});
+li.addEventListener('dragstart',e=>e.preventDefault());
+lb.addEventListener('close',()=>resetZoom());
+addEventListener('resize',()=>{clampPan();apply()});
 document.querySelectorAll('[data-open]').forEach(b=>b.onclick=()=>document.getElementById(b.dataset.open).showModal());
 document.querySelectorAll('[data-close]').forEach(b=>b.onclick=()=>b.closest('dialog').close());
 document.querySelectorAll('dialog').forEach(d=>d.addEventListener('click',e=>{if(e.target===d)d.close()}));
